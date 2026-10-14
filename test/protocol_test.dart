@@ -66,8 +66,8 @@ void main() {
       // Separator mark & space should exist in the pattern
       expect(pattern.contains(GreeProtocol.separatorSpace), isTrue);
 
-      // Total items: 2 (header) + 32*2 (block 1) + 2 (separator) + 32*2 (block 2) + 2 (trailer) = 136 timings
-      expect(pattern.length, 136);
+      // Total items: 2 (header) + 32*2 (block 1) + 2 (separator) + 32*2 (block 2) + 2 (trailer) = 134 timings
+      expect(pattern.length, 134);
     });
   });
 

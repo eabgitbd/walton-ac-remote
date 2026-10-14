@@ -38,6 +38,7 @@ void main() {
     final powerButton = find.byIcon(Icons.power_settings_new);
     expect(powerButton, findsOneWidget);
     await tester.tap(powerButton);
+    await tester.pump(const Duration(milliseconds: 300));
     await tester.pumpAndSettle();
 
     // Power is ON: STANDBY should disappear
