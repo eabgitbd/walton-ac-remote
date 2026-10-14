@@ -1,0 +1,40 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Android Studio / Android
+android/.gradle/
+android/local.properties
+android/captures/
+android/app/upload-keystore.jks
+android/gradlew
+android/gradlew.bat
+android/gradle/
+.gradle/
+*.apk
+
+# Flutter / Dart
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# Avoid committing original vendor APK to git
+Walton AC Remote_7.0.0.apk

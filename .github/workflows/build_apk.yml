@@ -1,0 +1,62 @@
+name: Build Walton AC Remote APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Test & Build Release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Verify Flutter & Dart
+        run: |
+          flutter --version
+          dart --version
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run unit & widget tests
+        run: flutter test
+
+      - name: Build Release APK
+        run: |
+          flutter build apk --release --split-per-abi --obfuscate --split-debug-info=build/debug-info
+          flutter build apk --release
+
+      - name: Rename APKs for convenience
+        run: |
+          mkdir -p release_apks
+          cp build/app/outputs/flutter-apk/app-release.apk release_apks/walton-ac-remote-universal.apk 2>/dev/null || true
+          cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk release_apks/walton-ac-remote-arm64.apk 2>/dev/null || true
+          cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk release_apks/walton-ac-remote-armv7.apk 2>/dev/null || true
+          ls -la release_apks/
+
+      - name: Upload Release APK Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: walton-ac-remote-apks
+          path: release_apks/*.apk
+          if-no-files-found: error
+          retention-days: 30
