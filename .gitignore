@@ -23,7 +23,6 @@ android/captures/
 android/app/upload-keystore.jks
 android/gradlew
 android/gradlew.bat
-android/gradle/
 .gradle/
 *.apk
 
